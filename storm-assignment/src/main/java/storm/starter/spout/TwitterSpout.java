@@ -13,13 +13,7 @@ import twitter4j.conf.ConfigurationBuilder;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/**
- * TwitterSpout fetches messages from Twitter Streaming API using Twitter4j.
- * Created with IntelliJ IDEA.
- * User: qadeer
- * Date: 05.09.13
- * Time: 22:50
- */
+
 public class TwitterSpout extends BaseRichSpout {
 
     public static final String MESSAGE = "message";

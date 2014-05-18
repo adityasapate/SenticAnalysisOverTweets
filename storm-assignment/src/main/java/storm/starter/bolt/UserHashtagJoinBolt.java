@@ -14,12 +14,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-/**
- * Created with IntelliJ IDEA.
- * User: qadeer
- * Time: 16:38
- * To change this template use File | Settings | File Templates.
- */
 public class UserHashtagJoinBolt extends BaseRichBolt {
     private OutputCollector _collector;
     HashMap<String, String> tweetHashtags = new HashMap<String, String>(); 

@@ -29,10 +29,6 @@ import twitter4j.TwitterStreamFactory;
 import twitter4j.api.HelpResources.Language;
 import twitter4j.conf.ConfigurationBuilder;
 
-/**
- * Created with IntelliJ IDEA. User: joning Date: 06.09.13 Time: 20:49 To change
- * this template use File | Settings | File Templates.
- */
 public class TwitterFunTopology {
 
 	private static String consumerKey = "xlQPZXQjc78hqHLmjzaATO30j";
