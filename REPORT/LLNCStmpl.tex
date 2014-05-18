@@ -1,0 +1,90 @@
+% LLNCStmpl.tex
+% Template file to use for LLNCS papers prepared in LaTeX
+%websites for more information: http://www.springer.com
+%http://www.springer.com/lncs
+
+
+
+\documentclass{llncs}
+%Use this line instead if you want to use running heads (i.e. headers on each page):
+%\documentclass[runningheads]{llncs}
+
+\usepackage{qtree}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{algorithmicx}
+ \usepackage{algpseudocode}
+\usepackage{float}
+
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+%\geometry{a4paper}
+
+\begin{document}
+\title{Sentiment Analysis of Streaming Data}
+
+%If you're using runningheads you can add an abreviated title for the running head on odd pages using the following
+%\titlerunning{abreviated title goes here}
+%and an alternative title for the table of contents:
+%\toctitle{table of contents title}
+
+\subtitle{Cloud Computing - Project Report}
+
+%For a single author
+%\author{Author Name}
+
+%For multiple authors:
+\author{Aditya Sapate\inst{1} \and Chaitanya Munukutla\inst{2}}
+
+
+%If using runnningheads you can abbreviate the author name on even pages:
+%\authorrunning{abbreviated author name}
+%and you can change the author name in the table of contents
+%\tocauthor{enhanced author name}
+
+%For a single institute
+%\institute{Institute Name \email{email address}}
+
+% If authors are from different institutes 
+\institute{IIT Madras \email{CS10B031} \and IIT Madras \email{CS10B040}}
+
+%to remove your email just remove '\email{email address}'
+% you can also remove the thanks footnote by removing '\thanks{Thank you to...}'
+
+
+\maketitle
+
+\section{Motivation}
+Social Media has creeped into everybody's lives and pockets. Constant feeds about the things that we care about, make up today's \textbf{news streams}. But, the user prespective about a specific topic is still not taken under serious consideration. \\ \\ For example, a review of a recently released movie may be trending. But, it's not known whether it's trending on the positive or the negative light of user opinions. The current project aims at realtime sentiment analysis of social feeds, which serves the above purpose. THe case study uner consideration is the \emph{Twitter Stream}.
+
+
+\section{Sentiment Analysis}
+
+\subsection{Peter D. Turney, \emph{Semantic Orientation Applied to Unsupervised Classification of Reviews}, 2002}
+
+The above paper presented a simple unsupervised learning algorith  for classifying reviews as \emph{recommended}(thumbs up) or \emph{not recommended}(thumbs down)
+
+\subsubsection{Extracting Phrases with Adjectives or Adverbs}
+Replying on past work by Hatzivassiloglou and Wiebe (2000) which showed that adjectives and adverbs are good indicators of subjective, evaluative sentences, the algorithm first extracts all the phrases of the review which contain an adverb or an adjective.
+
+However, procuring an isolated adjective may lead to different opinions in different contexts. For example, "unpredictable plot" may lead to a positive opinon under the context of a movie review, but "unpredictable steering" leads to a negative opinion under the context of an automotve review. So, the lone word "unpredictable" should not be relied on, and hence the current algorithm extracts two consecutive words, of which, the second word most usually depicts the situation or context of the review.
+
+\subsubsection{Estimating the Semantic Orientation}
+The estimation of semantic orientation of the extracted phrase uses the PMI-IR algorithm (Church and Hanks, 1989). The \textbf{Pointwise Mutual Information} between two words $word_1$ and $word_2$ can be defined as follows,
+$$
+PMI(word_1, word_2) = \log _2 \left( \dfrac{P(word_1 \ \& \ word_2)}{P(word_1) \bullet P(word_2)} \right)
+$$
+
+Here, $P(word_1 \ \& \ word_2)$ denotes the probability of the co-occurence of both $word_1$ and $word_2$.
+
+The Semantic Oreintation(SO) of a phrase is defined as follows,
+$$
+SO(phrase) = PMI(phrase, "excellent") - PMI(phrase, "poor")
+$$
+
+\subsection{•}
+
+\end{document}
+

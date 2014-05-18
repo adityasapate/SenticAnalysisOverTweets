@@ -6,7 +6,7 @@
     <artifactId>storm-twitter-workshop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-
+    
     <name>storm-twitter-workshop</name>
     <modules>
       <module>storm-assignment</module>

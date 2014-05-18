@@ -9,7 +9,8 @@ import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.HashSet;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -20,7 +21,7 @@ import java.util.StringTokenizer;
  * Time: 16:38
  * To change this template use File | Settings | File Templates.
  */
-public class HashtagExtractionBolt extends BaseRichBolt {
+public class HyperLinkExtractBolt extends BaseRichBolt {
     private OutputCollector _collector;
 
 
@@ -32,35 +33,39 @@ public class HashtagExtractionBolt extends BaseRichBolt {
 
     @Override
     public void execute(Tuple tuple) {
-    	
-    	String message = tuple.getStringByField("message");
-    	String tweet = tuple.getStringByField("trim");
-    	String tweetId = tuple.getStringByField("tweet_id");
-    	StringTokenizer strTok = new StringTokenizer(tweet, " ");
-    	StringBuilder str = new StringBuilder();
-    	
-    	while(strTok.hasMoreTokens()) {
-	    	String word = (String) strTok.nextElement();
-	    	if(word.startsWith("#") ) {
-	    			str.append(word.substring(1));
-	    	}else{
-	    		str.append(word);
-	    	}
-	    	str.append(" ");
-    	}
-    	
-    	
-    	_collector.emit(new Values(tweetId, message, str.toString()));
+        String text = tuple.getStringByField("message");
+        String tweet_id = tuple.getStringByField("tweet_id");
+        StringTokenizer st = new StringTokenizer(text);
+        
+        StringBuilder str = new StringBuilder();
+        
+        System.out.println("---- Split by space ------");
+        while (st.hasMoreElements()) {
+        	String word = (String) st.nextElement();
+        	
+        	try {
+                URL url = new URL(word);
+                
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                    str.append(word);
+                    str.append(" ");
+            }   
 
-    	        // Confirm that this tuple has been treated.
+
+        }
+        
+        
+
+        _collector.emit(new Values(tweet_id, text, str.toString()));
+        // Confirm that this tuple has been treated.
         _collector.ack(tuple);
 
     }
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("tweet_id","message", "trim"));
-
+        outputFieldsDeclarer.declare(new Fields("tweet_id", "message", "trim"));
     }
 
     @Override

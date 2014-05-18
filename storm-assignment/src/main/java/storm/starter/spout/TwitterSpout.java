@@ -23,6 +23,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class TwitterSpout extends BaseRichSpout {
 
     public static final String MESSAGE = "message";
+    Integer tweet_id = 0;
     private final String _accessTokenSecret;
     private final String _accessToken;
     private final String _consumerSecret;
@@ -69,7 +70,7 @@ public class TwitterSpout extends BaseRichSpout {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields(MESSAGE));
+        outputFieldsDeclarer.declare(new Fields(MESSAGE, "tweet_id"));
     }
 
     /**
@@ -141,7 +142,8 @@ public class TwitterSpout extends BaseRichSpout {
         if (s == null) {
             Utils.sleep(1000);
         } else {
-            _collector.emit(new Values(s));
+            _collector.emit(new Values(s, tweet_id.toString()));
+            tweet_id++;
 
         }
     }

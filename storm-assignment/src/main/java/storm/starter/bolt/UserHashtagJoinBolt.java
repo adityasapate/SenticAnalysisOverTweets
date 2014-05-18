@@ -9,6 +9,7 @@ import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -16,12 +17,13 @@ import java.util.StringTokenizer;
 /**
  * Created with IntelliJ IDEA.
  * User: qadeer
- * Date: 06.09.13
  * Time: 16:38
  * To change this template use File | Settings | File Templates.
  */
-public class HashtagExtractionBolt extends BaseRichBolt {
+public class UserHashtagJoinBolt extends BaseRichBolt {
     private OutputCollector _collector;
+    HashMap<String, String> tweetHashtags = new HashMap<String, String>(); 
+    HashMap<String, String> userTweets = new HashMap<String, String>();
 
 
     @Override
@@ -32,35 +34,22 @@ public class HashtagExtractionBolt extends BaseRichBolt {
 
     @Override
     public void execute(Tuple tuple) {
-    	
-    	String message = tuple.getStringByField("message");
-    	String tweet = tuple.getStringByField("trim");
+    	String source = tuple.getSourceStreamId();
     	String tweetId = tuple.getStringByField("tweet_id");
-    	StringTokenizer strTok = new StringTokenizer(tweet, " ");
-    	StringBuilder str = new StringBuilder();
-    	
-    	while(strTok.hasMoreTokens()) {
-	    	String word = (String) strTok.nextElement();
-	    	if(word.startsWith("#") ) {
-	    			str.append(word.substring(1));
-	    	}else{
-	    		str.append(word);
-	    	}
-	    	str.append(" ");
+    	if("hashtags".equals(source)) {
+    	String hashtag = tuple.getStringByField("hashtag");
+    	tweetHashtags.put(tweetId, hashtag);
+    	} else if("users".equals(source)) {
+    	String user = tuple.getStringByField("user");
+    	userTweets.put(user, tweetId);
     	}
-    	
-    	
-    	_collector.emit(new Values(tweetId, message, str.toString()));
-
-    	        // Confirm that this tuple has been treated.
         _collector.ack(tuple);
 
     }
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("tweet_id","message", "trim"));
-
+        outputFieldsDeclarer.declare(new Fields("entity"));
     }
 
     @Override

@@ -24,10 +24,10 @@ import java.util.logging.Logger;
 public class CheatingTwitterFunTopology {
 
 
-    private static String consumerKey = "FILL IN HERE";
-    private static String consumerSecret = "FILL IN HERE";
-    private static String accessToken = "FILL IN HERE";
-    private static String accessTokenSecret = "FILL IN HERE";
+    private static String consumerKey = "xlQPZXQjc78hqHLmjzaATO30j";
+    private static String consumerSecret = "4oBQSkIM62bTvgpQqSxNwRKJCYMbghr5Zvg6AhzQ13MCwKSCbG";
+    private static String accessToken = "499663420-UPx1f5cWTb2rJ5fyD0IjKmuePVMGMUNKVYyEostv";
+    private static String accessTokenSecret = "IhelPU92SGAJOevFH5pWLVANEIDCn4gIjyr1UwXA9GYq3";
 
 
     public static void main(String[] args) throws Exception {

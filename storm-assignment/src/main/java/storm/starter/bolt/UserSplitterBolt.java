@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  * Time: 16:38
  * To change this template use File | Settings | File Templates.
  */
-public class HashtagExtractionBolt extends BaseRichBolt {
+public class UserSplitterBolt extends BaseRichBolt {
     private OutputCollector _collector;
 
 
@@ -41,8 +41,8 @@ public class HashtagExtractionBolt extends BaseRichBolt {
     	
     	while(strTok.hasMoreTokens()) {
 	    	String word = (String) strTok.nextElement();
-	    	if(word.startsWith("#") ) {
-	    			str.append(word.substring(1));
+	    	if(word.startsWith("@") ) {
+	    			str.append("Adam");
 	    	}else{
 	    		str.append(word);
 	    	}
